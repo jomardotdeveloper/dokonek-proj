@@ -28,6 +28,9 @@ class Appointment extends Model
         'date',
         'approval_status',
         'status',
+        'is_paid',
+        'payment_method',
+        'doctor_confirmation_src'
     ];
 
     public function patient()

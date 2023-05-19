@@ -3,6 +3,8 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\ProfileController;
+use App\Models\Doctor;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,17 +23,19 @@ Route::get('/', function () {
 })->name("login");
 
 Route::get('home', function () {
-    return view('frontend');
+    return view('frontend', ['doctors' => Doctor::all()]);
 })->name("home");
 
 Route::post('authenticate', [App\Http\Controllers\LoginController::class, 'authenticate'])->name('authenticate');
 Route::post('logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
-
-
+Route::get('register', [App\Http\Controllers\LoginController::class, 'register'])->name('register');
+Route::post('register-post', [App\Http\Controllers\LoginController::class, 'store'])->name('register.store');
 Route::prefix("/panel")->middleware('auth')->group(function () {
     Route::resource('doctors', DoctorController::class);
     Route::resource('patients', PatientController::class);
     Route::resource('appointments', AppointmentController::class);
+
+    Route::resource('profiles', ProfileController::class);
 
     Route::get('appointments/{appointment}/approve', [App\Http\Controllers\AppointmentController::class, 'approve'])->name('appointments.approve');
     Route::get('appointments/{appointment}/reject', [App\Http\Controllers\AppointmentController::class, 'reject'])->name('appointments.reject');

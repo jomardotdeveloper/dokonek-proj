@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('date');
             $table->string('approval_status')->default('pending');
             $table->string('status')->default('pending');
+            $table->boolean('is_paid')->default(false);
+            $table->string('payment_method')->nullable();
+            $table->string('doctor_confirmation_src')->nullable();
             $table->timestamps();
         });
     }

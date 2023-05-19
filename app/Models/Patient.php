@@ -34,4 +34,11 @@ class Patient extends Model
         $id = strval($this->id);
         return "P" . str_pad($id, 4, "0", STR_PAD_LEFT);
     }
+
+    public function getAgeAttribute()
+    {
+        $birthday = $this->birthday;
+        $age = date_diff(date_create($birthday), date_create('now'))->y;
+        return $age;
+    }
 }

@@ -34,6 +34,9 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <h4 class="text-center mb-4">Sign in your account</h4>
+                                    <center>
+                                        <img class="brand-title" src="{{ asset('images/dokonek_logo.png') }}" style="height:50px;" alt="">
+                                    </center>
                                     <form action="{{ route('authenticate') }}" method="POST">
                                         @csrf
                                         <div class="form-group">
@@ -49,9 +52,11 @@
                                             <button type="submit" class="btn btn-primary btn-block">Sign Me In</button>
                                         </div>
                                     </form>
+                                    <div class="new-account mt-3">
                                     <center>
                                         <a href="{{ route('home') }}" class="text-primary text-center">Home</a>
                                     </center>
+                                    </div>
                                     
                                 </div>
                             </div>

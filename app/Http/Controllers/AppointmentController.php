@@ -62,9 +62,11 @@ class AppointmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Appointment $appointment)
     {
-        //
+        return view('appointments.show', [
+            'appointment' => $appointment,
+        ]);
     }
 
     /**
@@ -87,8 +89,12 @@ class AppointmentController extends Controller
      */
     public function update(Request $request, Appointment $appointment)
     {
-        
-        $appointment->update($request->all());
+        $values = $request->all();
+        if($request->is_paid)
+            $values['is_paid'] = true;
+        else
+            $values['is_paid'] = false;
+        $appointment->update($values);
 
         return redirect()->route('appointments.index');
     }

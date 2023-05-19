@@ -23,7 +23,10 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Contact #</th>
+                            @if (auth()->user()->user_type == 'admin')
                             <th>Action</th>
+                            @endif
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -35,7 +38,7 @@
                             <td>{{ $patient->user->email }}</td>
                             <td>{{ $patient->contact_number }}</td>
                             
-                        
+                            @if (auth()->user()->user_type == 'admin')
                             <td>
                                 <div class="d-flex">
                                     {{-- <a href="{{ route('doctors.show', ['doctor' => $doctor])  }}" class="btn btn-success shadow btn-xs sharp mr-1"><i class="fa fa-eye"></i></a> --}}
@@ -46,7 +49,8 @@
                                     @csrf
                                     @method('DELETE')
                                 </form>												
-                            </td>												
+                            </td>				
+                            @endif								
                         </tr>
                         @endforeach
                         

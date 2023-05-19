@@ -128,6 +128,7 @@
                             <th>Date</th>
                             <th>Approval Status</th>
                             <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -140,7 +141,19 @@
                             <td>{{ $appointment->special->name }}</td>
                             <td>{{ $appointment->date  }}</td>
                             <td>{{ $appointment->approval_status }}</td>
-                            <td>{{ $appointment->status }}</td>										
+                            <td>{{ $appointment->status }}</td>			
+                            <td>
+                                @if ($appointment->approval_status == 'approved')
+                                    @if (!$appointment->is_paid)
+                                    <a href="{{ route('appointments.show', $appointment) }}" class="btn btn-sm btn-primary">Pay Now</a> 
+                                    @else
+                                    Paid   
+                                    @endif
+                                @else
+                                Pending........ 
+                                @endif
+                                
+                            </td>							
                         </tr>
                         @endforeach
                         

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -11,7 +12,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+        return view('profile');
     }
 
     /**
@@ -27,7 +28,25 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        if(auth()->user()->user_type == "admin" || auth()->user()->user_type == "doctor") {
+            $request->validate([
+                'password' => 'required|confirmed',
+            ]);
+            $user = auth()->user();
+            if(!Hash::check($request->old_password, $user->password)) {
+                return redirect()->back()->withErrors(['old_password' => 'Old password is incorrect']);
+            }
+
+
+            
+
+            $user->password = Hash::make($request->password);
+
+            $user->save();
+
+            return redirect()->back()->with('success', 'Password changed successfully');
+        }
     }
 
     /**

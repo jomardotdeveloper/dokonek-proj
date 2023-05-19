@@ -44,9 +44,16 @@
   <!-- ======= Top Bar ======= -->
   <div id="topbar" class="d-flex align-items-center fixed-top">
     <div class="container d-flex justify-content-between">
+      <div class="d-none d-lg-flex social-links align-items-center">
+        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+      </div>
       <div class="contact-info d-flex align-items-center">
         @guest
         <i class="bx bx-user"></i> <a href="{{ route('login') }}">Login</a>
+        <i class="bx bx-user"></i> <a href="{{ route('register') }}">Register</a>
         {{-- <i class="bi bi-phone"></i> +1 5589 55488 55 --}}
         @endguest
         @auth
@@ -54,12 +61,7 @@
         <i class="bx bx-user"></i> <a href="{{ route('dashboard') }}">Dashboard</a>
         @endauth
       </div>
-      <div class="d-none d-lg-flex social-links align-items-center">
-        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
-      </div>
+     
     </div>
   </div>
 
@@ -67,7 +69,9 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto"><a href="index.html">Dokonek</a></h1>
+      <h1 class="logo me-auto"><a href="index.html">
+        <img src="{{ asset('images/dokonek_logo.png') }}" alt=""/>  
+      </a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -78,11 +82,12 @@
           <li><a class="nav-link scrollto" href="#services">Services</a></li>
           
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="nav-link scrollto" href="#doctor">Doctors</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
-      <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Make an</span> Appointment</a>
+      <a href="#doctor" class="appointment-btn scrollto"><span class="d-none d-md-inline">Make an</span> Appointment</a>
 
     </div>
   </header><!-- End Header -->
@@ -109,7 +114,7 @@
               <p>
                 Welcome to DoKonek, where scheduling doctor appointments has never been easier! Say goodbye to long phone calls and waiting times at the reception desk. We display real-time availability, allowing you to find open slots that fit your schedule, and you can effortlessly book your doctor appointments with just a few clicks. No more waiting for weeks to get the care you need!
               <div class="text-center">
-                <a href="#" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
+                <a href="#doctor" class="more-btn">Find a doctor <i class="bx bx-chevron-right"></i></a>
               </div>
             </div>
           </div>
@@ -158,7 +163,7 @@
 
         <div class="row">
           <div class="col-xl-5 col-lg-6 video-box d-flex justify-content-center align-items-stretch position-relative">
-            <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox play-btn mb-4"></a>
+            <a href="https://youtu.be/OSVA1FIQDOQ" class="glightbox play-btn mb-4"></a>
           </div>
 
           <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5">
@@ -283,6 +288,43 @@
 
       </div>
     </section><!-- End Services Section -->
+    <!-- ======= Doctors Section ======= -->
+    <section id="doctor" class="doctors">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Doctors</h2>
+          {{-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> --}}
+        </div>
+
+        <div class="row">
+          @foreach ($doctors as $doctor)
+          <div class="col-lg-6">
+            <div class="member d-flex align-items-start">
+              <div class="pic"><img src="{{ $doctor->image_src }}" class="img-fluid w-100" alt="" ></div>
+              <div class="member-info">
+                <h4>Dr. {{ $doctor->full_name }}</h4>
+                <span>{{ $doctor->special->name }}</span>
+                {{-- <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p> --}}
+                <div class="">
+                  <a href="{{ route('appointments.create') }}?doctor_id={{ $doctor->id }}" class="btn btn-primary">BOOK DOCTOR</a>
+                  {{-- <a href=""><i class="ri-twitter-fill"></i></a>
+                  <a href=""><i class="ri-facebook-fill"></i></a>
+                  <a href=""><i class="ri-instagram-fill"></i></a>
+                  <a href=""> <i class="ri-linkedin-box-fill"></i> </a> --}}
+                </div>
+              </div>
+            </div>
+          </div>
+          @endforeach
+          
+
+       
+
+        </div>
+
+      </div>
+    </section><!-- End Doctors Section -->
 
     {{-- <!-- ======= Appointment Section ======= -->
     <section id="appointment" class="appointment section-bg">
@@ -785,19 +827,19 @@
               <div class="address">
                 <i class="bi bi-geo-alt"></i>
                 <h4>Location:</h4>
-                <p>A108 Adam Street, New York, NY 535022</p>
+                <p>San Bartolome Quirino Highway, San Bartolome, Novaliches, Quezon City </p>
               </div>
 
               <div class="email">
                 <i class="bi bi-envelope"></i>
                 <h4>Email:</h4>
-                <p>info@example.com</p>
+                <p>generalbernardino@gmail.com </p>
               </div>
 
               <div class="phone">
                 <i class="bi bi-phone"></i>
                 <h4>Call:</h4>
-                <p>+1 5589 55488 55s</p>
+                <p>+63 987 654 3210</p>
               </div>
 
             </div>
